@@ -1,0 +1,93 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <div class="modal-title h4" id="example-modal-sizes-title-lg">
+            <ng-container *ngIf="user">
+                <ng-container *ngIf="user.id">Editer</ng-container>
+                <ng-container *ngIf="!user.id">Creér</ng-container>
+                Utilisateur
+                <ng-container *ngIf="user.id">'{{user.firstName}} {{ user.lastName }}'</ng-container>
+            </ng-container>
+        </div>
+    </div>
+    <div class="overlay overlay-block cursor-default modal-body" style="min-height: 404px;">
+        <ng-container *ngIf="isLoading$ | async">
+            <div class="overlay-layer bg-transparent">
+                <div class="spinner spinner-lg spinner-success"></div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="user">
+            <form action="#" class="form form-label-right" [formGroup]="formGroup">
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Saisir le Nom</label>
+                        <input type="text"  autocomplete="off" class="form-control form-control-lg form-control-solid" name="lastName"
+                               placeholder="Entrer Nom" autocomplete="off" [class.is-invalid]="isControlInvalid('lastName')"
+                               [class.is-valid]="isControlValid('lastName')" formControlName="lastName" />
+                        <div class="valid-feedback" *ngIf="isControlValid('lastName')">Nom was entered correct</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'lastName')">Nom is required</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'lastName')">Nom should have at
+                            least 3 caracters</div>
+
+                    </div>
+                    <div class="col-lg-6">
+                         <label class="form-label">Saisir le Prénom</label>
+                         <input type="text"  autocomplete="off" class="form-control form-control-lg form-control-solid" name="firstName"
+                                placeholder="Confirmer Prénom" autocomplete="off" [class.is-invalid]="isControlInvalid('firstName')"
+                                [class.is-valid]="isControlValid('firstName')" formControlName="firstName" />
+                         <div class="valid-feedback" *ngIf="isControlValid('firstName')">FirstName was entered correct</div>
+                         <div class="invalid-feedback" *ngIf="controlHasError('required', 'firstName')">FirstName is required</div>
+                         <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'firstName')">FirstName should have at
+                             least 3 symbols</div>
+                     </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-6">
+                        <label class="form-label">Saisir le nom d'utilisateur</label>
+                        <input type="text"  autocomplete="off" class="form-control form-control-lg form-control-solid" name="userName"
+                               placeholder="Username" autocomplete="off" [class.is-invalid]="isControlInvalid('userName')"
+                               [class.is-valid]="isControlValid('userName')" formControlName="userName" />
+                        <div class="valid-feedback" *ngIf="isControlValid('userName')">userName was entered correct</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'userName')">userName is required</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'userName')">Name should have at
+                            least 3 symbols</div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="form-label">Saisir le mot de passe</label>
+                        <input type="password"  autocomplete="off" class="form-control form-control-lg form-control-solid" name="password"
+                               placeholder="Password" autocomplete="off" [class.is-invalid]="isControlInvalid('password')"
+                               [class.is-valid]="isControlValid('password')" formControlName="password" />
+                        <div class="valid-feedback" *ngIf="isControlValid('password')">password was entered correct</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'password')">password is required</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('pattern', 'password')">password alphabets</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('minlength', 'password')">password should have at
+                            least 3 symbols</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('maxlength', 'password')">password should have
+                            maximum 20 symbols</div>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-8">
+                        <label class="form-label">Saisir Email</label>
+                        <input type="email" class="form-control form-control-lg form-control-solid" name="email" placeholder="Email"
+                               autocomplete="off" [class.is-invalid]="isControlInvalid('email')"
+                               [class.is-valid]="isControlValid('email')" formControlName="email" />
+                        <div class="valid-feedback" *ngIf="isControlValid('email')">Email was entered correct</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('required', 'email')">Email is required</div>
+                        <div class="invalid-feedback" *ngIf="controlHasError('email', 'email')">Email format is incorrect</div>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss()">Cancel</button>
+        <ng-container *ngIf="user">
+
+            <button type="submit" class="btn btn-primary btn-elevate" (click)="editOrSave()"
+                    [disabled]="formGroup.invalid">Save</button>
+        </ng-container>
+    </div>
+</div>

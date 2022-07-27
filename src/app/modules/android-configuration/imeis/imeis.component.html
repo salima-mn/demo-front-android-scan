@@ -1,0 +1,95 @@
+<div class="page-header" style="margin-top: -60px;">
+</div>
+
+<div class="card card-custom gutter-b">
+  <div class="card-header">
+    <div class="card-title">
+      <h3 class=" row card-label" style="margin-top: -28px">Utilisateurs de l'application Android</h3>
+      <p class="row text-primary text-sm-left" style="margin-top: 25px;margin-left: -305px;font-size: small;">Liste des IMEIs et ses correspondants</p>
+    </div>
+    <div class="card-toolbar">
+      <button type="button" class="btn btn-primary" (click)="create()">New IMEI</button>
+      <button hidden id="refresh" (click)="justRefresh()"></button>
+    </div>
+  </div>
+  <div class="card-body">
+    <!-- begin: Filtration form -->
+    <div class="form form-label-right">
+      <div class="form-group row">
+
+      </div>
+    </div>
+    <!-- end: Filtration form -->
+
+    <!-- begin: Grouping -->
+
+    <!-- end: Grouping -->
+
+    <!-- begin:Table -->
+    <div class="table-responsive angular-bootstrap-table">
+      <table class="table table-head-custom table-vertical-center overflow-hidden">
+        <thead>
+        <!--<th class="selection-cell-header" data-row-selection="true">
+          <label class="checkbox checkbox-single"><input type="checkbox" /><span></span></label>
+        </th>-->
+        <th>
+          IMEI
+        </th>
+        <th>
+          NOM
+        </th>
+        <th>
+          PRENOM
+        </th>
+        <th>
+          EMAIL
+        </th>
+        <th>
+          DATE EXPIRATION
+        </th>
+        <th>
+          ETAT
+        </th>
+        <th>ACTIONS</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let imei of listImei">
+          <td>{{ imei.value }}</td>
+          <td>{{ imei.name }}</td>
+          <td>{{ imei.surname }}</td>
+          <td>{{ imei.email }}</td>
+          <td>{{ imei.expiredToken }}</td>
+          <!--<td>{{getStatus(imei)}}</td>-->
+          <td>
+              <span class="label label-lg label-inline" [class.label-light-danger]="imei?.status === 2"
+                    [class.label-light-success]="imei?.status === 1" [class.label-light-primary]="imei?.status === 0">
+                <ng-container *ngIf="imei?.status === 2">Suspended</ng-container>
+                <ng-container *ngIf="imei?.status === 1">Active</ng-container>
+                <ng-container *ngIf="imei?.status === 0">Initial</ng-container>
+              </span>
+          </td>
+          <td>
+
+            <a title="Edit imei" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
+               (click)="edit(imei)">
+                <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
+                      class="svg-icon svg-icon-md svg-icon-primary">
+                </span>
+            </a>
+
+            <a title="Delete imei" class="btn btn-icon btn-light btn-hover-danger btn-sm"
+               (click)="delete(imei)">
+                <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
+                      class="svg-icon svg-icon-md svg-icon-danger">
+                </span>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- end: Table -->
+    <!--<app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
+                   [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator>-->
+  </div>
+</div>

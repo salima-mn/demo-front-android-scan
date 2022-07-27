@@ -1,0 +1,91 @@
+<div class="page-header"  style="margin-top: -65px;">
+  <h3 class="page-title">
+    Générer les Tokens
+  </h3>
+
+</div>
+<div class="row">
+
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+          <div class="row">
+        <h4 class="card-title">Configurer les paramètres du Token</h4>
+          <ng-container *ngIf="isLoading">
+              <div class="ml-9 overlay-layer">
+                  <div class="spinner spinner-lg spinner-primary" style="margin-left: 384px;top: -35px;right: -19px;"></div>
+              </div>
+          </ng-container>
+          </div>
+        <form class="forms-sample">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">IMEI</label>
+            <div class="col-sm-9">
+              <!-- <input type="number" min="0" onkeypress="return event.charCode >= 48" class="form-control" name="exampleInputUsername2" [(ngModel)]="imeiRequest.imei_value" placeholder="IMEI"> -->
+              <input type="text" class="form-control" name="exampleInputUsername2" [(ngModel)]="imeiRequest.imei_value" placeholder="IMEI">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Confirm IMEI</label>
+            <div class="col-sm-9">
+              <!-- <input type="number" min="0" onkeypress="return event.charCode >= 48" class="form-control" name="exampleInputEmail2" [(ngModel)]="imeiRequest.imei_pass" placeholder="IMEI"> -->
+              <input type="text" class="form-control" name="exampleInputEmail2" [(ngModel)]="imeiRequest.imei_pass" placeholder="IMEI">
+            </div>
+          </div>
+          <label class="row col-sm-8 col-form-label">Date Expiration du Token à générer</label>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Jour</label>
+            <div class="col-sm-9">
+              <input type="number" min="0" onkeypress="return event.charCode >= 48" class="form-control" [(ngModel)]="imeiRequest.day" name="exampleInputDay" placeholder="Jour">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Heure</label>
+            <div class="col-sm-9">
+              <input type="number" min="1" onkeypress="return event.charCode >= 48" class="form-control" name="exampleInputHour" [(ngModel)]="imeiRequest.hour" placeholder="Heure">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary mr-2" (click)="generateToken(imeiRequest)">Générer</button>
+          <button class="btn btn-light" (click)="reinitialize()">Réinitialiser</button>
+          <button hidden id='refresh' class="btn btn-light"></button>
+            <!--<ng-container *ngIf="isLoading">
+                <div class="ml-9 overlay-layer">
+                    <div class="spinner spinner-lg spinner-primary" style="margin-left: 384px;margin-top: -14px;"></div>
+                </div>
+            </ng-container>-->
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Le Token Généré</h4>
+        <form class="forms-sample">
+          <div class="form-group">
+            <label for="exampleInputUsername1">Token</label>
+            <textarea type="text" class="form-control" id="exampleInputUsername1" placeholder="Generated Token"
+                      style="height: 200px;" [(ngModel)]="generatedToken" name="token"></textarea>
+          </div>
+          <!-- <div class="form-group">
+             <label for="exampleInputEmail1">Email address</label>
+             <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+           </div>
+           <div class="form-group">
+             <label for="exampleInputPassword1">Password</label>
+             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+           </div>
+           <div class="form-group">
+             <label for="exampleInputConfirmPassword1">Confirm Password</label>
+             <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
+           </div>-->
+
+          <button type="submit" class="btn btn-primary mr-2" (click)="download()" [disabled]="!generatedToken">Exporter</button>
+          <button class="btn btn-light" (click)="openMailDialog(imeiRequest)" [disabled]="!generatedToken">Envoyer par Mail</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,131 @@
+<div class="page-header" style="margin-top: -60px;">
+</div>
+
+<mat-tab-group>
+    <mat-tab label="Cette application">
+
+        <div class="card card-custom gutter-b">
+        <div class="card-header">
+            <div class="card-title">
+                <h3 class=" row card-label">Vue générales sur l'historique des opérations sue cette application</h3>
+            </div>
+            <div class="card-toolbar">
+                <ng-container *ngIf="typeDashboardOp == '1'"><button type="button" class="btn btn-primary" (click)="switchToBarFormOp()">Show Bar Form</button></ng-container>
+                <ng-container *ngIf="typeDashboardOp == '2'"><button type="button" class="btn btn-primary" (click)="switchToDonughtFormOp()">Show Circle Form</button></ng-container>
+                <button hidden id="refresh1" (click)="justRefresh1()"></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- begin: Filtration form -->
+            <form class="form" [formGroup]="searchForm" (ngSubmit)="search()">
+
+                    <div class="row form-group">
+                        <div class="col-lg-3">
+                            <label>Date Début</label>
+                            <div class="input-group input-group-solid">
+                                <input type="text" name="dateDebut" class="form-control form-control-lg form-control-solid" autocomplete="off"
+                                       placeholder="Date de Début" ngbDatepicker #d="ngbDatepicker"
+                                       formControlName="dateDebut" readonly="true" />
+                                <div class="input-group-append" (click)="d.toggle()">
+                                    <span class="input-group-text">
+                                      <i class="text-dark-50 flaticon-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-lg-3">
+                        <label>User</label>
+                        <select formControlName="name" class="form-control form-control-lg form-control-solid">
+                            <option [value]="''"></option>
+                            <option *ngFor="let user of listUsers" [value]="user.firstName">
+                                {{user.firstName}} {{user.lastName}}
+                            </option>
+                        </select>
+                        </div>
+
+                        <button class="btn btn-sm btn-primary" type="submit"
+                                style="height: 44px;margin-top: 27px;margin-left: 13px;width: 102px;">Rechercher</button>
+                    </div>
+
+            </form>
+
+            <div *ngIf="typeDashboardOp == '1'" class="chartjs-container">
+                <canvas baseChart
+                        [data]="doughnutChartDataOp"
+                        [labels]="doughnutChartLabelsOp"
+                        [chartType]="doughnutChartType"
+                        [colors]="donutColors">
+                </canvas>
+            </div>
+
+            <div class="row">
+                <div *ngIf="typeDashboardOp == '2'" style="display: block;" class="offset-1 col-md-10">
+                    <canvas baseChart
+                            [data]="barChartDataOp"
+                            [labels]="barChartLabelsOp"
+                            [options]="barChartOptions"
+                            [plugins]="barChartPlugins"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </mat-tab>
+    <mat-tab label="Application Android">
+
+        <div class="card card-custom gutter-b">
+        <div class="card-header">
+            <div class="card-title">
+                <h3 class=" row card-label">Vue générales sur les status des utilisateurs de l'application Android</h3>
+            </div>
+            <div class="card-toolbar">
+                <ng-container *ngIf="typeDashboard == '1'"><button type="button" class="btn btn-primary" (click)="switchToBarForm()">Show Bar Form</button></ng-container>
+                <ng-container *ngIf="typeDashboard == '2'"><button type="button" class="btn btn-primary" (click)="switchToDonughtForm()">Show Circle Form</button></ng-container>
+                <button hidden id="refresh" (click)="justRefresh()"></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- begin: Filtration form -->
+            <div class="form form-label-right">
+                <div class="form-group row">
+
+                </div>
+            </div>
+
+            <div *ngIf="typeDashboard == '1'" class="chartjs-container">
+                <canvas baseChart
+                        [data]="doughnutChartData"
+                        [labels]="doughnutChartLabels"
+                        [chartType]="doughnutChartType"
+                        [colors]="donutColors">
+                </canvas>
+            </div>
+
+            <div class="row">
+                <div *ngIf="typeDashboard == '2'" style="display: block;" class="offset-2 col-md-8">
+                    <canvas baseChart
+                            [data]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [plugins]="barChartPlugins"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </mat-tab>
+</mat-tab-group>
+
+
+
+
+
